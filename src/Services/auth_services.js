@@ -34,6 +34,14 @@ export class AuthService {
         }
     }
 
+    async logout() {
+        try {
+            await this.Account.deleteSessions();
+        } catch (error) {
+            throw error
+        }
+    }
+
     async getCurrentUser() {
         try {
             return await this.Account.get();
@@ -42,13 +50,6 @@ export class AuthService {
         }
     }
 
-    async logout() {
-        try {
-            await this.Account.deleteSessions();
-        } catch (error) {
-            throw error
-        }
-    }
 }
 
 const authService = new AuthService();
