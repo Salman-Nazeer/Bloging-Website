@@ -4,6 +4,7 @@ import Container from './Container/container'
 import Logo from "./logo";
 import LogoutBTN from "./Header/logoutBTN";
 import Input from "./input";
+import RTE from "./RTE";
 
 export {
     Header,
@@ -12,4 +13,5 @@ export {
     Logo,
     LogoutBTN,
     Input,
+    RTE,
 }
