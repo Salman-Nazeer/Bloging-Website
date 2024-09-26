@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigation } from "react-router-dom";
-import { Login as authLogin } from "../Store/Features/authSlice";
+import { login as authLogin } from "../Store/Features/authSlice";
 import { Button, Input, Logo } from "./index";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";

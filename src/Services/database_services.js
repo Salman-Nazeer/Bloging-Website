@@ -7,9 +7,9 @@ export class Database {
     bucket;
     constructor() {
         this.Client
-            .setEndpoint(appwriteURL)
-            .setProject(appwriteProjectID);
-        this.database = new Database(this.Client);
+            .setEndpoint(config.appwriteURL)
+            .setProject(config.appwriteProjectID);
+        this.database = new Databases(this.Client);
         this.bucket = new Storage(this.Client);
     }
 
@@ -144,4 +144,4 @@ export class Database {
 
 const database = new Database();
 
-export default Database
+export default database
