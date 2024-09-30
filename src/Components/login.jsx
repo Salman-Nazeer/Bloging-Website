@@ -41,7 +41,7 @@ const login = () => {
           </span>
         </div>
         <h2 className="text-center text-2xl font-bold leading-tight">
-          Sign in to your account
+          Log In in to your account
         </h2>
         <p className="mt-2 text-center text-base text-black/60">
           Don&apos;t have any account?&nbsp;
@@ -69,15 +69,16 @@ const login = () => {
                 },
               })}
             />
-            <lable
+            <Input
               lable="Password:"
+              type="password"
               placeholder="Enter your Password"
               {...register("password", {
                 required: true,
               })}
             />
-            <Button type="submit" className="w-full">
-              Sign In
+            <Button type="submit" className="w-full bg-black">
+              Log In
             </Button>
           </div>
         </form>

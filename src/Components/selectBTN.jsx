@@ -19,4 +19,4 @@ const selectBTN = ({ options, lable, className, ...props }, ref) => {
   );
 };
 
-export default React.forwardRef(selectBTN);
+export default forwardRef(selectBTN);
