@@ -53,8 +53,8 @@ const signup = () => {
         <form onSubmit={handleSubmit(create)}>
           <div className="space-y-5">
             <Input
-              lable="Full Name:"
-              palceholder="Enter your Full Name"
+              label="Full Name: "
+              placeholder="Enter your full name"
               {...register("name", {
                 required: true,
               })}
@@ -73,10 +73,10 @@ const signup = () => {
               })}
             />
             <Input
-              lable="Password"
+              label="Password: "
               type="password"
-              palceholder="Enter your Password"
-              {...register("passward", {
+              placeholder="Enter your password"
+              {...register("password", {
                 required: true,
               })}
             />

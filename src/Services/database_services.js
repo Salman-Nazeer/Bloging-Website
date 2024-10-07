@@ -2,144 +2,134 @@ import config from "../config/config";
 import { Client, ID, Databases, Storage, Query } from "appwrite";
 
 export class Database {
-    Client = new Client();
-    database;
+    client = new Client();
+    databases;
     bucket;
-    constructor() {
-        this.Client
-            .setEndpoint(config.appwriteURL)
-            .setProject(config.appwriteProjectID);
-        this.database = new Databases(this.Client);
-        this.bucket = new Storage(this.Client);
+        
+    constructor(){
+        this.client
+        .setEndpoint(config.appwriteURL)
+        .setProject(config.appwriteProjectID);
+        this.databases = new Databases(this.client);
+        this.bucket = new Storage(this.client);
     }
 
-    async createPost({ title, slug, content, featuredImage, status, userID }) {
+    async createPost({Title, slug, Content, FeaturedImg, Status, UserId}){
         try {
-            return await this.database.createDocument(
+            return await this.databases.createDocument(
                 config.appwriteDataBaseID,
                 config.appwriteCollectionID,
                 slug,
                 {
-                    title,
-                    content,
-                    featuredImage,
-                    status,
-                    userID,
+                    Title,
+                    Content,
+                    FeaturedImg,
+                    Status,
+                    UserId,
                 }
             )
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: createPost :: error", error);
         }
     }
-    async updatePost(slug, { title, content, featuredImage, status }) {
+
+    async updatePost(slug, {Title, Content, FeaturedImg, Status}){
         try {
-            return await this.database.updateDocument(
+            return await this.databases.updateDocument(
                 config.appwriteDataBaseID,
                 config.appwriteCollectionID,
                 slug,
                 {
-                    title,
-                    content,
-                    featuredImage,
-                    status,
+                    Title,
+                    Content,
+                    FeaturedImg,
+                    Status,
+
                 }
             )
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: updatePost :: error", error);
         }
     }
 
-    async deletePost(slug) {
+    async deletePost(slug){
         try {
-            await this.database.deleteDocument(
+            await this.databases.deleteDocument(
                 config.appwriteDataBaseID,
                 config.appwriteCollectionID,
                 slug
+            
             )
             return true
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: deletePost :: error", error);
             return false
         }
     }
 
-    async getPost(slug) {
+    async getPost(slug){
         try {
-            await this.database.getDocument(
+            return await this.databases.getDocument(
                 config.appwriteDataBaseID,
                 config.appwriteCollectionID,
                 slug
+            
             )
-            return true
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: getPost :: error", error);
             return false
         }
     }
 
-    async getPosts(queries = [Query.equal("status", "active")]) {
+    async getPosts(queries = [Query.equal("Status", "active")]){
         try {
-            return await this.database.listDocuments(
+            return await this.databases.listDocuments(
                 config.appwriteDataBaseID,
                 config.appwriteCollectionID,
                 queries,
+                
+
             )
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: getPosts :: error", error);
             return false
         }
     }
 
+    // file upload service
 
-    //UPLOAD FILE
-
-    async uploadFile(file) {
+    async uploadFile(file){
         try {
-            return await this.bucket.updateFile(
+            return await this.bucket.createFile(
                 config.appwriteBucketID,
+                ID.unique(),
                 file
             )
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: uploadFile :: error", error);
             return false
         }
     }
 
-    async deleteFile(fileID) {
+    async deleteFile(fileId){
         try {
             await this.bucket.deleteFile(
                 config.appwriteBucketID,
-                fileID
+                fileId
             )
             return true
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: deleteFile :: error", error);
             return false
         }
     }
 
-
-    getFilePreview(fileID) {
+    getFilePreview(fileId){
         return this.bucket.getFilePreview(
             config.appwriteBucketID,
-            fileID
+            fileId
         )
     }
-
-
-
-    // async listPost() {
-    //     try {
-    //         return await this.database.listDocuments(
-    //             config.appwriteDataBaseID,
-    //             config.appwriteCollectionID
-    //         )
-    //     } catch(error) {
-    //         throw error
-    //     }
-    // }
-
-
 }
 
 const database = new Database();
