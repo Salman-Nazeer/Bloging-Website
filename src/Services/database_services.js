@@ -3,7 +3,7 @@ import { Client, ID, Databases, Storage, Query } from "appwrite";
 
 export class Database {
     client = new Client();
-            databases;
+    databases;
     bucket;
     
     constructor(){
@@ -15,9 +15,6 @@ export class Database {
     }
 
     async createPost({title, slug, content, featuredImage, status, userId}){
-        if (!userId) {
-            throw new Error("User ID is required");
-          }
         try {
             return await this.databases.createDocument(
                 config.appwriteDataBaseID,
@@ -113,6 +110,7 @@ export class Database {
             return false
         }
     }
+    
 
     async deleteFile(fileId){
         try {
@@ -126,13 +124,14 @@ export class Database {
             return false
         }
     }
+    
 
-    getFilePreview(fileId){
+    getFilePreview(fileId) {
         return this.bucket.getFilePreview(
             config.appwriteBucketID,
-            fileId
+            fileId,
         )
-    }
+    }   
 }
 
 const database = new Database();
