@@ -3,9 +3,9 @@ import { Client, ID, Databases, Storage, Query } from "appwrite";
 
 export class Database {
     client = new Client();
-    databases;
+            databases;
     bucket;
-        
+    
     constructor(){
         this.client
         .setEndpoint(config.appwriteURL)
@@ -14,18 +14,21 @@ export class Database {
         this.bucket = new Storage(this.client);
     }
 
-    async createPost({Title, slug, Content, FeaturedImg, Status, UserId}){
+    async createPost({title, slug, content, featuredImage, status, userId}){
+        if (!userId) {
+            throw new Error("User ID is required");
+          }
         try {
             return await this.databases.createDocument(
                 config.appwriteDataBaseID,
                 config.appwriteCollectionID,
                 slug,
                 {
-                    Title,
-                    Content,
-                    FeaturedImg,
-                    Status,
-                    UserId,
+                    title,
+                    content,
+                    featuredImage,
+                    status,
+                    userId,
                 }
             )
         } catch (error) {
@@ -33,17 +36,17 @@ export class Database {
         }
     }
 
-    async updatePost(slug, {Title, Content, FeaturedImg, Status}){
+    async updatePost(slug, {title, content, featuredImage, status}){
         try {
             return await this.databases.updateDocument(
                 config.appwriteDataBaseID,
                 config.appwriteCollectionID,
                 slug,
                 {
-                    Title,
-                    Content,
-                    FeaturedImg,
-                    Status,
+                    title,
+                    content,
+                    featuredImage,
+                    status,
 
                 }
             )
@@ -81,7 +84,7 @@ export class Database {
         }
     }
 
-    async getPosts(queries = [Query.equal("Status", "active")]){
+    async getPosts(queries = [Query.equal("status", "active")]){
         try {
             return await this.databases.listDocuments(
                 config.appwriteDataBaseID,

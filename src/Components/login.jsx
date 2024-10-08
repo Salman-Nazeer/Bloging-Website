@@ -1,31 +1,28 @@
 import React from "react";
-import { Link, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login as authLogin } from "../Store/Features/authSlice";
-import {Button, Input, Logo } from "./index";
+import { Button, Input, Logo } from "./index";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import authService from "../Services/auth_services";
 
 const login = () => {
-  const navigate = useNavigation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-
   const [error, setError] = useState("");
 
   const login = async (data) => {
     setError("");
     try {
-      const response = await authService.login(data);
-      if (response) {
+      const session = await authService.login(data);
+      if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) {
-          dispatch(authLogin(userData));
-          navigate("/");
-        }
+        if (userData) dispatch(authLogin(userData));
+        navigate("/");
       }
-    } catch {
+    } catch (error) {
       setError(error.message);
     }
   };
@@ -41,7 +38,7 @@ const login = () => {
           </span>
         </div>
         <h2 className="text-center text-2xl font-bold leading-tight">
-          Log In in to your account
+          Sign in to your account
         </h2>
         <p className="mt-2 text-center text-base text-black/60">
           Don&apos;t have any account?&nbsp;
@@ -53,32 +50,31 @@ const login = () => {
           </Link>
         </p>
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-
         <form onSubmit={handleSubmit(login)} className="mt-8">
           <div className="space-y-5">
             <Input
-              lable="Email:"
+              label="Email: "
               placeholder="Enter your email"
               type="email"
               {...register("email", {
                 required: true,
                 validate: {
                   matchPatern: (value) =>
-                    /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/gim.test(value) ||
-                    "Email address must be a valid addres",
+                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                    "Email address must be a valid address",
                 },
               })}
             />
             <Input
-              lable="Password:"
+              label="Password: "
               type="password"
-              placeholder="Enter your Password"
+              placeholder="Enter your password"
               {...register("password", {
                 required: true,
               })}
             />
-            <Button type="submit" className="w-full bg-black">
-              Log In
+            <Button type="submit" className="w-full">
+              Sign in
             </Button>
           </div>
         </form>
