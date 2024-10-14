@@ -3,7 +3,7 @@ import appwriteService from "../Services/database_services";
 import { Container, PostCard } from "../Components";
 
 const home = () => {
-  const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         appwriteService.getPosts().then((posts) => {
