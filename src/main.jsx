@@ -5,17 +5,16 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import "./index.css";
 import store from "./Store/store.js";
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { AuthLayout } from './Components/index.js'
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { AuthLayout } from "./Components/index.js";
 
-import Home from './Pages/home.jsx'
+import Home from "./Pages/home.jsx";
 import AddPost from "./Pages/addPost.jsx";
-import Signup from './Pages/signUp.jsx'
+import Signup from "./Pages/signUp.jsx";
 import EditPost from "./Pages/editPost.jsx";
 import Post from "./Pages/post.jsx";
 import AllPosts from "./Pages/AllPost.jsx";
-import LogIn from "./Pages/logIn.jsx"
-
+import LogIn from "./Pages/logIn.jsx";
 
 const router = createBrowserRouter([
   {

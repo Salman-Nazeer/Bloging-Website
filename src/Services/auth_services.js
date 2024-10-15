@@ -42,11 +42,11 @@ export class AuthService {
         } catch (error) {
             return null;
         }
-        
+
     }
-    
+
     async logout() {
-        
+
         try {
             await this.account.deleteSessions();
         } catch (error) {
