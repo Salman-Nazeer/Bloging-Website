@@ -28,6 +28,8 @@ export default function post() {
       if (status) {
         Database.deleteFile(post.featuredImage);
         navigate("/");
+      } else {
+        navigate("/login");
       }
     });
   };
