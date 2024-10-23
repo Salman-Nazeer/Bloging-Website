@@ -5,6 +5,9 @@ import { Button, Container } from "../Components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+
 export default function post() {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
@@ -49,23 +52,59 @@ export default function post() {
           )}
 
           {isAuthor && (
-            <div className="absolute right-6 top-6">
+            // <div className="flex absolute right-6 top-6 sm:items-start">
+            //   <Link to={`/edit-post/${post.$id}`}>
+            //     <Button bgColor="bg-green-500" className="flex items-center mr-3 mb-2 sm:mb-0">
+            //       Edit
+            //     <FontAwesomeIcon icon={faPen} className="ml-1 block"/>
+            //     </Button>
+            //   </Link>
+            //   <Button bgColor="bg-red-500" onClick={deletePost}  className="flex items-center mb-2 sm:mb-0">
+            //     Delete
+            //   <FontAwesomeIcon icon={faTrash} className="ml-1 block" />
+            //   </Button>
+            // </div>
+            <div className="flex absolute right-6 top-6 sm:items-start">
+              {/* Edit Button */}
               <Link to={`/edit-post/${post.$id}`}>
-                <Button bgColor="bg-green-500" className="mr-3">
-                  Edit
+                <Button
+                  bgColor="bg-green-500"
+                  className="flex items-center mr-3 mb-2 sm:mb-0 text-sm sm:p-3 sm:text-base"
+                >
+                  <span className="hidden sm:block">Edit</span>{" "}
+                  {/* Text hidden on mobile */}
+                  <FontAwesomeIcon
+                    icon={faPen}
+                    className="ml-1 block text-sm sm:text-2xl"
+                  />
                 </Button>
               </Link>
-              <Button bgColor="bg-red-500" onClick={deletePost}>
-                Delete
+
+              {/* Delete Button */}
+              <Button
+                bgColor="bg-red-500"
+                onClick={deletePost}
+                className="flex items-center mb-2 sm:mb-0 text-sm sm:p-3 sm:text-base"
+              >
+                <span className="hidden sm:block">Delete</span>{" "}
+                {/* Text hidden on mobile */}
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  className="ml-1 block text-sm sm:text-2xl"
+                />
               </Button>
             </div>
           )}
         </div>
 
-        <div className="w-full mb-6">
-          <h1 className="text-2xl font-bold">{post.title}</h1>
+        <div className="w-full text-left pl-5 sm:pl-10 md:pl-12">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6">
+            {post.title}:
+          </h1>
+          <div className="px-4 sm:px-7 text-left text-base sm:text-lg md:text-xl lg:text-2xl">
+            {parse(post.content)}
+          </div>
         </div>
-        <div className="browser-css">{parse(post.content)}</div>
       </Container>
     </div>
   ) : null;
