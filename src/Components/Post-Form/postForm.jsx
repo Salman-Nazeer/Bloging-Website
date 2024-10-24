@@ -75,7 +75,7 @@ export default function PostForm({ post }) {
     return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
 
-  return (  
+  return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       {/* Left Column - Title, Slug, Content */}
       <div className="w-full md:w-2/3 px-2 mb-6 md:mb-0">
